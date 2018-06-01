@@ -20,7 +20,7 @@
     "@types/morgan": "^1.7.35",
     "nodemon": "^1.17.5",
     "tslint": "^5.10.0",
-    "typescript": "^2.8.3"
+    "typescript": "^2.9.1"
   },
   "dependencies": {
     "cors": "^2.8.4",

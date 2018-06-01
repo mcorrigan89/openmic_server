@@ -27,6 +27,8 @@ export class TimeslotModel {
     return this.timeslotRepo.createQueryBuilder('timeslot')
       .leftJoinAndSelect('timeslot.showcase', 'showcase')
       .where('showcase.id = :id', { id: showcaseId })
+      .orderBy('time')
+      .cache(60000)
       .getMany();
   }
 
@@ -34,6 +36,7 @@ export class TimeslotModel {
     return this.timeslotRepo.createQueryBuilder('timeslot')
       .leftJoinAndSelect('timeslot.artist', 'artist')
       .where('artist.id = :id', { id: artistId })
+      .cache(60000)
       .getMany();
   }
 

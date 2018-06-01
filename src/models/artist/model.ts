@@ -21,6 +21,7 @@ export class ArtistModel {
     return this.artistRepo.createQueryBuilder('artist')
       .leftJoinAndSelect('artist.timeslots', 'timeslot')
       .where('timeslot.id = :id', { id: timeslotId })
+      .cache(60000)
       .getOne();
   }
 

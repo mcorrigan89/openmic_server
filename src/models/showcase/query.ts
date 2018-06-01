@@ -3,6 +3,7 @@ import {
   GraphQLList,
   GraphQLID,
   GraphQLFieldConfig,
+  GraphQLBoolean,
 } from 'graphql';
 import { ShowcaseModel } from '../showcase/model';
 import { showcaseType, showcaseInputType, showcaseUpdateType } from '../showcase/type';
@@ -10,7 +11,12 @@ import { showcaseType, showcaseInputType, showcaseUpdateType } from '../showcase
 export namespace query {
   export const showcases = {
     type: new GraphQLList(showcaseType),
-    resolve: () => new ShowcaseModel().getShowcases()
+    args: {
+      future: {
+        type: GraphQLBoolean
+      }
+    },
+    resolve: (_, args) => args.future ? new ShowcaseModel().getFutureShowcase() : new ShowcaseModel().getShowcases()
   };
   export const showcase = {
     type: showcaseType,

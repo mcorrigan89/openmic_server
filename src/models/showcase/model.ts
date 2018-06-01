@@ -10,7 +10,18 @@ export class ShowcaseModel {
   }
 
   public getShowcases = async () => {
-    return this.showcaseRepo.find();
+    return this.showcaseRepo.createQueryBuilder('showcase')
+      .orderBy('date')
+      .cache(60000)
+      .getMany();
+  }
+
+  public getFutureShowcase = async () => {
+    return this.showcaseRepo.createQueryBuilder('showcase')
+      .where('date > current_date')
+      .orderBy('date')
+      .cache(60000)
+      .getMany();
   }
 
   public getShowcaseById = async (id: string) => {
@@ -21,6 +32,7 @@ export class ShowcaseModel {
     return this.showcaseRepo.createQueryBuilder('showcase')
       .leftJoinAndSelect('showcase.timeslots', 'timeslot')
       .where('timeslot.id = :id', { id: timeslotId })
+      .cache(60000)
       .getOne();
   }
 
